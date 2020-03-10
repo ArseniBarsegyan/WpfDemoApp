@@ -2,9 +2,15 @@
 using System.IO;
 using System.Windows;
 
+using AutoMapper;
+
+using GameStore.BLL.Classes;
+using GameStore.BLL.Interfaces;
+using GameStore.BLL.Mapping;
 using GameStore.DAL;
 using GameStore.DAL.Models;
 using GameStore.DAL.Repositories;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,8 +40,7 @@ namespace WpfDemoApp
 
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
-            var viewModel = new MainPageViewModel(
-                serviceProvider.GetRequiredService<Repository<GameStoreContext, Game>>());
+            var viewModel = serviceProvider.GetService<MainPageViewModel>();
             MainWindow mainWindow = new MainWindow(viewModel);
             mainWindow.Show();
         }
@@ -44,11 +49,20 @@ namespace WpfDemoApp
         {
             services.AddSingleton(Configuration);
 
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             var options = new DbContextOptionsBuilder().UseSqlServer(
                 Configuration.GetConnectionString(ConstantsHelper.DatabaseName));
 
             services.AddTransient(s => new GameStoreContext(options.Options));
-            services.AddTransient<Repository<GameStoreContext, Game>>();
+            services.AddTransient<Repository<GameStoreContext, Game>>();           
+            services.AddTransient<IGamesService, GamesService>();
+            services.AddTransient<MainPageViewModel>();
         }
     }
 }

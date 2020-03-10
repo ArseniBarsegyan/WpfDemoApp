@@ -1,17 +1,14 @@
-﻿using GameStore.DAL;
-using GameStore.DAL.Models;
-using GameStore.DAL.Repositories;
+﻿using GameStore.BLL.Interfaces;
 
 namespace WpfDemoApp.ViewModels
 {
     public class MainPageViewModel
     {
-        private readonly Repository<GameStoreContext, Game> _repository;
+        private readonly IGamesService _gamesService;
 
-        public MainPageViewModel(Repository<GameStoreContext, Game> repository)
+        public MainPageViewModel(IGamesService gamesService)
         {
-            _repository = repository;
-            var allGames = _repository.Get();
+            _gamesService = gamesService;
         }
     }
 }
