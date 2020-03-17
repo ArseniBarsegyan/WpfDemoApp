@@ -8,12 +8,8 @@
         Height="450" 
         Width="800">
     <StackPanel>
-        <Button Content="Click" 
-                Click="Button_Click" />
-        <ListBox x:Name="GamesList" 
-                 ItemsSource="{Binding Games}"
-                 Height="300"
-                 Width="800">
+        <ListBox x:Name="GamesList"
+                 ItemsSource="{Binding Games}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
