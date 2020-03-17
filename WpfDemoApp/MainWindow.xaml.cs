@@ -12,6 +12,7 @@ namespace WpfDemoApp
         {
             InitializeComponent();
             _viewModel = viewModel;
+            DataContext = _viewModel;
         }
     }
 }

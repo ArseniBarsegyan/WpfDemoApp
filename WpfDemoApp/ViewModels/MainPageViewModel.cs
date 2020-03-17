@@ -1,4 +1,9 @@
-﻿using GameStore.BLL.Interfaces;
+﻿using System.Collections.ObjectModel;
+
+using GameStore.BLL.Dto;
+using GameStore.BLL.Interfaces;
+
+using WpfDemoApp.Extensions;
 
 namespace WpfDemoApp.ViewModels
 {
@@ -10,5 +15,12 @@ namespace WpfDemoApp.ViewModels
         {
             _gamesService = gamesService;
         }
+
+        public void Initialize()
+        {
+            Games = _gamesService.GetAll().ToObservableCollection();
+        }
+
+        public ObservableCollection<GameDto> Games { get; private set; }
     }
 }
