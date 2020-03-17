@@ -3,9 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfDemoApp"
         mc:Ignorable="d"
         Title="MainWindow" 
         Height="450" 
         Width="800">
+    <StackPanel>
+        <Button Content="Click" 
+                Click="Button_Click" />
+        <ListBox x:Name="GamesList" 
+                 ItemsSource="{Binding Games}"
+                 Height="300"
+                 Width="800">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <Image Width="100" Height="75" Source="{Binding Path=ImageUrl}" />
+                        <TextBlock FontSize="16" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
+                        <TextBlock FontSize="16" Text="{Binding Path=Price}" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </StackPanel>    
 </Window>

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using System.Linq;
 using AutoMapper;
 
 using GameStore.BLL.Dto;
@@ -24,7 +24,7 @@ namespace GameStore.BLL.Classes
 
         public void Create(GameDto game)
         {
-            var entity = _mapper.Map<GameDto, Game>(game);
+            var entity = _mapper.Map<Game>(game);
             _repository.Create(entity);
             _repository.Save();
         }
@@ -37,21 +37,18 @@ namespace GameStore.BLL.Classes
 
         public GameDto Get(int id)
         {
-            return _mapper.Map<Game, GameDto>(_repository.GetById(id));
+            return _mapper.Map<GameDto>(_repository.GetById(id));
         }
 
         public IEnumerable<GameDto> GetAll()
         {
             var entities = _repository.GetAll();
-            foreach (var entity in entities)
-            {
-                yield return _mapper.Map<Game, GameDto>(entity);
-            }
+            return entities.Select(x => _mapper.Map<GameDto>(x));
         }
 
         public void Update(GameDto game)
         {
-            _repository.Update(_mapper.Map<GameDto, Game>(game));
+            _repository.Update(_mapper.Map<Game>(game));
         }
     }
 }

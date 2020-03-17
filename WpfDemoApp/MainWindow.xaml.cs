@@ -12,6 +12,13 @@ namespace WpfDemoApp
         {
             InitializeComponent();
             _viewModel = viewModel;
+            DataContext = _viewModel;
+            _viewModel.Initialize();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var items = GamesList.ItemsSource;
         }
     }
 }
