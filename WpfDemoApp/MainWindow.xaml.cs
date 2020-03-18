@@ -6,7 +6,7 @@ namespace WpfDemoApp
 {
     public partial class MainWindow : Window
     {
-        private MainPageViewModel _viewModel;
+        private readonly MainPageViewModel _viewModel;
 
         public MainWindow(MainPageViewModel viewModel)
         {
