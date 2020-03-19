@@ -22,9 +22,6 @@ namespace GameStore.Migrations
 
             services.AddDbContext<BaseContext>(options =>
                 options.UseSqlServer(connectionString));
-
-            services.AddDbContext<GameStoreAppContext>(options =>
-                options.UseSqlServer(connectionString));
         }
 
         public void Configure()

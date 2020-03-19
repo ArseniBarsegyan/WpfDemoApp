@@ -16,7 +16,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using WpfDemoApp.Constants;
-using WpfDemoApp.ViewModels;
 
 namespace WpfDemoApp
 {
@@ -38,12 +37,13 @@ namespace WpfDemoApp
             ServiceCollection serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
 
-            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+            ServiceProvider = serviceCollection.BuildServiceProvider();
 
-            var viewModel = serviceProvider.GetService<MainPageViewModel>();
-            MainWindow mainWindow = new MainWindow(viewModel);
+            MainWindow mainWindow = new MainWindow(ServiceProvider.GetService<IGamesService>());
             mainWindow.Show();
         }
+
+        public IServiceProvider ServiceProvider { get; }
 
         private void ConfigureServices(IServiceCollection services)
         {
@@ -62,7 +62,6 @@ namespace WpfDemoApp
             services.AddTransient(s => new GameStoreContext(options.Options));
             services.AddTransient<Repository<GameStoreContext, Game>>();           
             services.AddTransient<IGamesService, GamesService>();
-            services.AddTransient<MainPageViewModel>();
         }
     }
 }

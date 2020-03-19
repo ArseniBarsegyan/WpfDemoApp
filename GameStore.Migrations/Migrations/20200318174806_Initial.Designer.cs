@@ -4,14 +4,16 @@ using GameStore.Migrations.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace GameStore.Migrations.Migrations.GameStoreApp
+namespace GameStore.Migrations.Migrations
 {
-    [DbContext(typeof(GameStoreAppContext))]
-    partial class GameStoreAppContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(BaseContext))]
+    [Migration("20200318174806_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
